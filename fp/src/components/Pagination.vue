@@ -31,7 +31,7 @@ export default {
       if (p < 1 || p > this.amount) {
         return;
       }
-      this.$emit('paginate',p);
+      this.$emit('paginate', p);
     },
   },
 };
