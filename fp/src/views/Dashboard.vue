@@ -43,8 +43,11 @@ export default {
       this.page = p;
     },
   },
-  created() {
-    this.fetchData();
+  async created() {
+    await this.fetchData();
+    if (this.$route.params?.page) {
+      this.page = Number(this.$route.params.page);
+    }
     // this.$store.dispatch('fetchData');
     // this.$store.commit('setPaymentsListData', this.fetchData());
   },
