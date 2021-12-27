@@ -2,12 +2,7 @@
   <main>
     <add-payment-form />
     <payments-display :items="currentElements" />
-    <pagination
-      :cur="page"
-      :n="n"
-      :length="paymentsList.length"
-      @paginate="changePage"
-    />
+    <pagination :cur="page" :n="n" :length="12" @paginate="changePage" />
   </main>
 </template>
 
@@ -23,17 +18,16 @@ export default {
     return {
       show: true,
       page: 1,
-      n: 10,
+      n: 3,
     };
   },
   computed: {
-    ...mapGetters({ paymentsList: "getPaymentsList" }),
+    ...mapGetters(["getPaymentsList"]),
     total() {
       return this.$store.getters.getPaymentsListFullValuePrice;
     },
     currentElements() {
-      const { n, page } = this;
-      return this.paymentsList.slice(n * (page - 1), n * (page - 1) + n);
+      return this.getPaymentsList.slice(this.n * (this.page - 1), this.n * (this.page - 1) + this.n);
     },
   },
   methods: {
@@ -41,10 +35,11 @@ export default {
     ...mapActions(["fetchData"]),
     changePage(p) {
       this.page = p;
+      this.fetchData(p);
     },
   },
   async created() {
-    await this.fetchData();
+    await this.fetchData(1);
     if (this.$route.params?.page) {
       this.page = Number(this.$route.params.page);
     }
