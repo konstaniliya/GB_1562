@@ -9,15 +9,31 @@
       <main>
         <router-view />
       </main>
+      <transition name="fade">
+        <modal-window-add-pyament-form
+          :settings="settings"
+          :componentName="componentName"
+          v-if="componentName"
+        />
+      </transition>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  components: {
+    ModalWindowAddPyamentForm: () =>
+      import(
+        /* webpackChunkName: "Modal" */ "./components/ModalWindowAddPyamentForm.vue"
+      ),
+  },
   name: "App",
   data() {
-    return {};
+    return {
+      settings: {},
+      componentName: "",
+    };
   },
   methods: {
     goToPageNotFound() {
@@ -26,6 +42,22 @@ export default {
         name: "notfound",
       });
     },
+    onShow({ name, settings }) {
+      this.componentName = name;
+      this.settings = settings;
+    },
+    onHide() {
+      this.settings = {};
+      this.componentName = "";
+    },
+  },
+  mounted() {
+    this.$modal.EventBus.$on("show", this.onShow);
+    this.$modal.EventBus.$on("hide", this.onHide);
+  },
+  beforeDestroy() {
+    this.$modal.EventBus.$off("show");
+    this.$modal.EventBus.$off("hide");
   },
 };
 </script>
@@ -41,5 +73,15 @@ export default {
 }
 h1 {
   font-size: 20px;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

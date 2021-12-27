@@ -1,6 +1,6 @@
 <template>
   <main>
-    <add-payment-form />
+    <!-- <add-payment-form /> -->
     <payments-display :items="currentElements" />
     <pagination
       :cur="page"
@@ -8,20 +8,27 @@
       :length="paymentsList.length"
       @paginate="changePage"
     />
+    <button @click="openModal">Add new cost +</button>
   </main>
 </template>
 
 <script>
-import AddPaymentForm from "../components/AddPaymentForm.vue";
 import PaymentsDisplay from "../components/PaymentsDisplay.vue";
 import { mapMutations, mapGetters, mapActions } from "vuex";
 import Pagination from "../components/Pagination.vue";
 export default {
   name: "Dashboard",
-  components: { PaymentsDisplay, AddPaymentForm, Pagination },
+  components: {
+    PaymentsDisplay,
+    Pagination,
+  },
   data() {
     return {
-      show: true,
+      addFormShow: false,
+      settings: {
+        content: "addPaymentForm",
+        header: "Add new cost",
+      },
       page: 1,
       n: 10,
     };
@@ -41,6 +48,12 @@ export default {
     ...mapActions(["fetchData"]),
     changePage(p) {
       this.page = p;
+    },
+    openModal() {
+      this.$modal.show("AddPaymentForm", {
+        content: "addPaymentForm",
+        header: "Add new cost",
+      });
     },
   },
   async created() {

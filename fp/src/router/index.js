@@ -1,36 +1,36 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-
-import Dashboard from "../views/Dashboard.vue";
-import About from "../views/About.vue";
-import NotFound from "../views/NotFound.vue";
-
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/dashboard",
     name: "dashboard",
-    component: Dashboard,
+    component: () =>
+      import(/* webpackChunkName: "Dashboard" */ "../views/Dashboard.vue"),
   },
   {
     path: "/dashboard/:page",
     name: "dashboard",
-    component: Dashboard,
+    component: () =>
+      import(/* webpackChunkName: "Dashboard" */ "../views/Dashboard.vue"),
   },
   {
     path: "/about",
     name: "about",
-    component: About,
+    component: () =>
+      import(/* webpackChunkName: "About" */ "../views/About.vue"),
   },
   {
     path: "/notfound",
     name: "notfound",
-    component: NotFound,
+    component: () =>
+      import(/* webpackChunkName: "NotFound" */ "../views/NotFound.vue"),
   },
   {
     path: "*",
-    component: NotFound,
+    component: () =>
+      import(/* webpackChunkName: "NotFound" */ "../views/NotFound.vue"),
   },
 ];
 
