@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   components: {
     ModalWindowAddPyamentForm: () =>
@@ -36,6 +37,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["fetchData"]),
     goToPageNotFound() {
       if (this.$route.name === "notfound") return;
       this.$router.push({
@@ -50,6 +52,9 @@ export default {
       this.settings = {};
       this.componentName = "";
     },
+  },
+  async created() {
+    await this.fetchData();
   },
   mounted() {
     this.$modal.EventBus.$on("show", this.onShow);

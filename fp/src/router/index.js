@@ -4,6 +4,11 @@ Vue.use(VueRouter);
 
 const routes = [
   {
+    path: "/add/payment/:category",
+    name: "addPayment",
+    component: ()=>import('../components/AddPaymentForm.vue')
+  },
+  {
     path: "/dashboard",
     name: "dashboard",
     component: () =>

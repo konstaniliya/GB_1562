@@ -48,7 +48,7 @@ export default new Vuex.Store({
             });
           }
           resolve(items);
-        }, 2000);
+        }, 0);
       }).then((res) => commit("setPaymentsListData", res));
     },
     fetchCategory({ commit }) {
@@ -56,7 +56,7 @@ export default new Vuex.Store({
         setTimeout(() => {
           const items = ["Sport", "Education", "Internet", "Food", "Transport"];
           resolve(items);
-        }, 2000);
+        }, 0);
       }).then((res) => commit("setCategoryData", res));
     },
   },
