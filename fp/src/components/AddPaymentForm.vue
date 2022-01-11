@@ -1,14 +1,14 @@
 <template>
-  <div class="wrapper">
-    <input placeholder="date" v-model="date" />
-    <div class="categoryList">
-      <select v-model="category">
-        <option v-for="(category, idx) in categoryList" :key="idx" :value="category">{{ category }}</option>
-      </select>
-    </div>
-    <input placeholder="value" type="number" v-model.number="value" />
-    <button @click="onClick">Save!</button>
-  </div>
+  <v-card class="text-left pa-8">
+    <v-text-field v-model="date" label="Date" />
+    <v-select
+          :items="categoryList"
+          label="Category"
+          v-model="category"
+        ></v-select>
+    <v-text-field v-model.number="value" label="Value" />
+    <v-btn @click="onClick">Save!</v-btn>
+  </v-card>
 </template>
 
 <script>

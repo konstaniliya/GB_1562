@@ -1,54 +1,30 @@
 <template>
-  <div>
-    <button @click="onClick">Clicked {{ counter }} times!</button>
+  <div class="btn">
+    <div class="icon">
+      <slot name="icon" />
+    </div>
+    <button><slot name="default" v-bind:props="upperCaseText">Кликни меня</slot></button>
   </div>
 </template>
 
 <script>
 export default {
+  props: ['text'],
   data() {
     return {
-      counter: 0,
     };
   },
   methods: {
-    onClick() {
-      this.counter++;
-    },
-    mouseOver(){
-        console.log('Hovered on button')
+  },
+  computed: {
+    upperCaseText(){
+      return "123123"
     }
-  },
-  beforeCreate() {
-    console.log("beforeCreate");
-  },
-  created() {
-    console.log("created");
-  },
-  beforeMount() {
-    console.log("beforeMount");
-  },
-  mounted() {
-    console.log("mounted");
-    const btn = this.$el.querySelector('button')
-    if(btn) {
-        btn.addEventListener('mouseover', this.mouseOver)
-    }
-  },
-  beforeUpdate() {
-    console.log("beforeUpdate");
-  },
-  updated() {
-    console.log("updated");
-  },
-  beforeDestroy() {
-    const btn = this.$el.querySelector('button')
-    if(btn) {
-        btn.removeEventListener('mouseover', this.mouseOver)
-    }
-  },
-  destroyed() {
-    console.log("destroyed");
-  },
+  }
 };
 </script>
+<style scoped>
+.btn{
+  display: flex;
+}
+</style>
