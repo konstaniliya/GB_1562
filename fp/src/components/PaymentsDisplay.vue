@@ -1,7 +1,10 @@
 <template>
   <div class="wrapper">
     <div class="item" v-for="(item, idx) in items" :key="idx">
-      {{ item }}
+      <span>{{ item.date }}</span
+      >-<span>{{ item.category }}</span
+      >-<span>{{ item.id }}</span
+      >-<span @click="onClickContextItem($event, item)">...</span>
     </div>
   </div>
 </template>
@@ -13,6 +16,28 @@ export default {
     items: {
       type: Array,
       default: () => [],
+    },
+  },
+  methods: {
+    editItem(item) {
+      console.log(item);
+    },
+    onClickContextItem(event, item) {
+      const items = [
+        {
+          text: "Edit",
+          action: () => {
+            this.editItem(item);
+          },
+        },
+        {
+          text: "Delete",
+          action: () => {
+            console.log("delete", item);
+          },
+        },
+      ];
+      this.$context.show({ event, items });
     },
   },
 };

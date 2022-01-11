@@ -16,17 +16,22 @@
           v-if="componentName"
         />
       </transition>
+      <transition name="fade">
+        <context-menu />
+      </transition>
     </div>
   </div>
 </template>
 
 <script>
+import ContextMenu from './components/ContextMenu.vue';
 export default {
   components: {
     ModalWindowAddPyamentForm: () =>
       import(
         /* webpackChunkName: "Modal" */ "./components/ModalWindowAddPyamentForm.vue"
       ),
+    ContextMenu
   },
   name: "App",
   data() {
