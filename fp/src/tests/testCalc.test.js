@@ -1,5 +1,6 @@
 import {mount} from '@vue/test-utils'
-import { nextTick } from 'vue/types/umd'
+import { nextTick } from 'vue';
+import regeneratorRuntime from "regenerator-runtime"
 import Calculator from '../components/Calculator.vue'
 
 describe('Calculator',()=>{
